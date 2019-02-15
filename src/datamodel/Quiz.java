@@ -31,7 +31,7 @@ public class Quiz {
 
         List<Question> chosenQuestions = new ArrayList<Question>();
         QuestionJDBCDAO questionJDBCDAO = new QuestionJDBCDAO();
-        chosenQuestions = questionJDBCDAO.search(topics, difficulty);
+//        chosenQuestions = questionJDBCDAO.search(topics, difficulty);
 
         //for
         //diplay question
