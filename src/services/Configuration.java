@@ -1,12 +1,12 @@
-package services;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
-public class Configuration {
+//package services;
+//
+//import java.io.File;
+//import java.io.FileInputStream;
+//import java.io.IOException;
+//import java.io.InputStream;
+//import java.util.Properties;
+//
+//public class Configuration {
 //
 //    private Properties properties;
 //
@@ -37,4 +37,4 @@ public class Configuration {
 //        return properties.getProperty(configurationKey);
 //    }
 //
-}
+//}

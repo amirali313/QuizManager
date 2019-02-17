@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
 
         System.out.println("Hello User!");
         System.out.println("Please login using your name and id : ");
@@ -20,7 +20,7 @@ public class Main {
 
     }
 
-    public static void loginUser(Scanner scanner){
+    public static void loginUser(Scanner scanner) throws ClassNotFoundException {
         String name = scanner.nextLine();
         String id = scanner.nextLine();
 
@@ -58,18 +58,19 @@ public class Main {
 
     }
 
-    public static void handleStudentQuiz(Student student){
+    public static void handleStudentQuiz(Student student) throws ClassNotFoundException {
 
         System.out.println("please enter your topics :");
         Scanner scanner1 = new Scanner(System.in);
 
         List<String> topics = new ArrayList<String>();
 
-        while(scanner1.nextLine()!= null)
+        for (int i = 0 ; i < 2 ; i++) {
             topics.add(scanner1.nextLine());
+        }
 
         System.out.println("please enter level of difficulty :");
-        System.out.println();
+        System.out.println("(1 | 2 | 3 levels)");
         Scanner scanner2 = new Scanner(System.in);
 
         int difficulty = scanner2.nextInt();

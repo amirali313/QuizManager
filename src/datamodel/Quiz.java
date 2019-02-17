@@ -15,9 +15,9 @@ public class Quiz {
     private List<String> topics = new ArrayList<String>();
     private int difficulty;
 
-    private MCQAnswer mcqAnswer;
-    private Answer answer;
-    private MCQQuestions mcqQuestions;
+    private List<MCQAnswer> mcqAnswers;
+    private List<Answer> answers;
+    private List<MCQQuestions> mcqQuestions;
 
 
     public Quiz(List<String> topics, int difficulty) {
@@ -25,17 +25,23 @@ public class Quiz {
         this.difficulty = difficulty;
     }
 
-    public void takeQuiz(){
+    public void takeQuiz() throws ClassNotFoundException {
         //search questions based on topics and difficulties
         // call a method from services and ask for chosen questions
 
-        List<Question> chosenQuestions = new ArrayList<Question>();
+        List<Question> chosenQuestions;
         QuestionJDBCDAO questionJDBCDAO = new QuestionJDBCDAO();
-//        chosenQuestions = questionJDBCDAO.search(topics, difficulty);
+        chosenQuestions = questionJDBCDAO.getQuestions(difficulty);
 
-        //for
-        //diplay question
-        //diplay chosenQuestions[i].getquestionanswer()
+        for (int i = 0; i < chosenQuestions.size(); i++) {
+            int j = i + 1;
+            System.out.println("id : " + chosenQuestions.get(i).getId());
+            System.out.println("difficulty : " + chosenQuestions.get(i).getDifficulty());
+            System.out.println("Q" + j + " : " + chosenQuestions.get(i).getQuestion());
 
+            //TODO get answer from student
+        }
+
+        //TODO export
     }
 }

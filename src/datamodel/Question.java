@@ -7,7 +7,7 @@ public class Question {
 
     private String question;
     private List<String> topics;
-    private Integer difficulty;
+    private int difficulty;
 
     private Answer answer;
 
@@ -39,10 +39,10 @@ public class Question {
     public void setTopics(List<String> topics) {
         this.topics = topics;
     }
-    public Integer getDifficulty() {
+    public int getDifficulty() {
         return difficulty;
     }
-    public void setDifficulty(Integer difficulty) {
+    public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }
 
@@ -53,5 +53,7 @@ public class Question {
     public void setId(int id) {
         this.id = id;
     }
+
+
 }
 
