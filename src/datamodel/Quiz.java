@@ -40,7 +40,7 @@ public class Quiz {
             System.out.println("topics : " + chosenQuestions.get(i).getTopics());
             System.out.println("Q" + j + " : " + chosenQuestions.get(i).getQuestion());
 
-            //TODO get answer from student
+            //TODO get answer from student scanner
         }
 
         //TODO export

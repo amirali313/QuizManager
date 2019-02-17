@@ -23,7 +23,7 @@ public class QuestionJDBCDAO {
 
 
      select * from question;*/
-    private static final String INSERT_STATEMENT = "INSERT INTO QUESTION (QUESTION, DIFFICULTY) VALUES (?, ?)";
+    private static final String INSERT_STATEMENT = "INSERT INTO QUESTION,TOPICS (QUESTION, DIFFICULTY, TOPIC1, TOPIC2) VALUES (?, ?, ?, ?)";
     private static final String SEARCH_STATEMENT = "SELECT * FROM QUESTION";
     private static final String UPDATE_STATEMENT = "UPDATE QUESTION SET QUESTION=?, DIFFICULTY=? WHERE ID=?";
     private static final String DELETE_STATEMENT = "DELETE FROM QUESTION WHERE ID = ?";
@@ -37,9 +37,10 @@ public class QuestionJDBCDAO {
 
             insertStatement.setString(1, question.getQuestion());
             insertStatement.setInt(2, question.getDifficulty());
-
+            insertStatement.setString(3, question.getTopics().get(0));
+            insertStatement.setString(4, question.getTopics().get(1));
             insertStatement.execute();
-
+            System.out.println("Question created Successfully!!!!!!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
