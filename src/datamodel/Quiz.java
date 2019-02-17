@@ -31,12 +31,13 @@ public class Quiz {
 
         List<Question> chosenQuestions;
         QuestionJDBCDAO questionJDBCDAO = new QuestionJDBCDAO();
-        chosenQuestions = questionJDBCDAO.getQuestions(difficulty);
+        chosenQuestions = questionJDBCDAO.getQuestions(topics, difficulty);
 
         for (int i = 0; i < chosenQuestions.size(); i++) {
             int j = i + 1;
             System.out.println("id : " + chosenQuestions.get(i).getId());
             System.out.println("difficulty : " + chosenQuestions.get(i).getDifficulty());
+            System.out.println("topics : " + chosenQuestions.get(i).getTopics());
             System.out.println("Q" + j + " : " + chosenQuestions.get(i).getQuestion());
 
             //TODO get answer from student

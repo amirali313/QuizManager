@@ -134,13 +134,13 @@ public class QuestionJDBCDAO {
         return resultList;
     }
 
-    public List<Question> getQuestions(int difficulty) {
+    public List<Question> getQuestions(List<String> topics, int difficulty) {
 
         List<Question> resultList = new ArrayList<Question>();
 
-        String selectQuery = "select id, question, difficulty from question where DIFFICULTY="+difficulty;
+        String selectQuery = "select id, question, difficulty, topic1, topic2 from question,topics where question.topicid=topics.tid and DIFFICULTY="+difficulty+" and (topic1 IN ('" + topics.get(0) +"', '"+ topics.get(1) +"') or topic2 IN ('" + topics.get(0) +"', '"+ topics.get(1) +"'))";
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)
         ) {
             ResultSet results = preparedStatement.executeQuery();
             while (results.next()) {
@@ -148,6 +148,7 @@ public class QuestionJDBCDAO {
                 question.setQuestion(results.getString("question"));
                 question.setId(results.getInt("id"));
                 question.setDifficulty(results.getInt("difficulty"));
+                question.setTopics(topics);
 
                 	//preparedStatement.setString(1, question.getQuestion());
                 	//preparedStatement.setInt(2, question.getDifficulty());
