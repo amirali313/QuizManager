@@ -8,24 +8,27 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException {
+        while (true) {
+            System.out.println("----------");
+            System.out.println("Hello User!");
+            System.out.println("1.Teacher");
+            System.out.println("2.Student");
+            System.out.println("0.EXIT");
+            System.out.println("----------");
+            Scanner scanner = new Scanner(System.in);
+            int choice = scanner.nextInt();
+            if (choice == 1) {
+                HandleTeacher handleTeacher = new HandleTeacher();
+                handleTeacher.loginTeacher();
+            } else if (choice == 2) {
 
-        System.out.println("Hello User!");
-        System.out.println("1.Teacher");
-        System.out.println("2.Student");
-        Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
-        if (choice == 1) {
-            HandleTeacher handleTeacher = new HandleTeacher();
-            handleTeacher.loginTeacher();
+                HandleStudent handleStudent = new HandleStudent();
+                handleStudent.loginStudent();
+            } else if (choice == 0) {
+                return;
+            } else
+                System.out.println("Entered wrong argument !");
+
         }
-
-        else if (choice == 2){
-
-            HandleStudent handleStudent = new HandleStudent();
-            handleStudent.loginStudent();
-        }
-        else
-            System.out.println("Entered wrong argument !");
-
     }
 }

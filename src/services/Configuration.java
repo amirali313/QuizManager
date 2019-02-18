@@ -1,40 +1,35 @@
-//package services;
-//
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.util.Properties;
-//
-//public class Configuration {
-//
-//    private Properties properties;
-//
-//    private static Configuration instance;
-//
-//    private Configuration() {
-//        this.properties = new Properties();
-//        //TODO make the test.properties variable (use a system variable?)
-//        String confLocation = System.getProperty("conf.location");
-//        //TODO design a fallback if the system variable is not set
-//        try (InputStream is = new FileInputStream(new File(confLocation))) {
-//            properties.load(is);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//    public static Configuration getInstance() {
-//        if (instance == null) {
-//            instance = new Configuration();
-//        }
-//        return instance;
-//
-//    }
-//
-//    public String getConfigurationValue(String configurationKey) {
-//        return properties.getProperty(configurationKey);
-//    }
-//
-//}
+package services;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+public class Configuration {
+
+    public Properties properties;
+
+    private static Configuration configuration;   // this object is a singleton
+
+    private Configuration() {
+        File file = new File("app.properties");  // getting the properties file
+        try {
+            properties = new Properties();  // instantiation of a new properties set
+            properties.load(new FileInputStream(file));  // loading all the properties of the file
+            // create a map<key, value> of all properties
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Configuration getInstance() {
+        if (configuration == null) { // if the config is not initialized
+            configuration = new Configuration();  // we initialize it
+        }
+        return configuration;  // otherwise we return the already existing one
+    }
+
+    public String getPropertyValue(String key) { // get the value of a given property
+        return properties.getProperty(key);
+    }
+}

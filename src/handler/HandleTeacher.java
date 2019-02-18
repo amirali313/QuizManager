@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class HandleTeacher {
 
-    public static void loginTeacher() {
+    public void loginTeacher() {
         System.out.println("-- Teacher Login --");
         System.out.println("Please enter your name and id : ");
         Scanner scanner = new Scanner(System.in);

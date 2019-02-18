@@ -20,6 +20,16 @@ public class QuestionJDBCDAO {
     private static final String DELETE_STATEMENT = "DELETE FROM QUESTION WHERE ID = ?";
 
 
+    private Connection getConnection() throws SQLException {
+
+        Configuration conf = Configuration.getInstance();
+        String dburl = conf.getPropertyValue("db.url");
+        String user = conf.getPropertyValue("db.username");
+        String password = conf.getPropertyValue("db.password");
+        Connection connection = DriverManager.getConnection(dburl, user, password);
+        return connection;
+
+    }
 
     public void create(Question question) {
         String INSERT_STATEMENT1 = "INSERT INTO QUESTION (QUESTION, DIFFICULTY) VALUES ('" +question.getQuestion()+"',"+question.getDifficulty()+")";
@@ -58,37 +68,13 @@ public class QuestionJDBCDAO {
 
     }
 
-    private Connection getConnection() throws SQLException {
-        /*Configuration conf = Configuration.getInstance();
-        String jdbcUrl = conf.getConfigurationValue("jdbc.url");
-        String user = conf.getConfigurationValue("jdbc.user");
-        String password = conf.getConfigurationValue("jdbc.password");
-        Connection connection = DriverManager.getConnection(jdbcUrl, user, password);
-        return connection;*/
-
-        String JDBC_DRIVER = "org.h2.Driver";
-
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            Class.forName(JDBC_DRIVER);
-
-            System.out.println("Connecting to database...");
-            // conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/server~/test","sa","");
-            conn = DriverManager.getConnection("jdbc:h2:~/test","sa","");
-        } catch (ClassNotFoundException e) {
-
-            e.printStackTrace();
-        }
-        return conn;
-    }
-
     public void delete(Question question) {
 
         try (Connection connection = getConnection();
              PreparedStatement deleteStatement = connection.prepareStatement(DELETE_STATEMENT)){
             deleteStatement.setInt(1, question.getId());
-            deleteStatement.executeQuery();
+            deleteStatement.execute();
+            System.out.println("Deleted successfully!!");
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -153,6 +139,9 @@ public class QuestionJDBCDAO {
             results.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (resultList.size() == 0){
+            System.out.println("No Quiz found :(");
         }
         return resultList;
     }
