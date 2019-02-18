@@ -74,7 +74,7 @@ public class HandleStudent {
 
         int difficulty = scanner2.nextInt();
 
-        Quiz quiz = new Quiz(topics , difficulty);
+        Quiz quiz = new Quiz(topics , difficulty , student);
 
         quiz.takeQuiz();
 

@@ -9,7 +9,8 @@ public class Question {
     private List<String> topics;
     private int difficulty;
 
-    private Answer answer;
+    private List<String> mcqAnswers;
+    private int validChoice;
 
     @Override
     public String toString() {
@@ -20,11 +21,11 @@ public class Question {
     public Question() {
     }
 
-    public Question(String question, List<String> topics, Integer difficulty) {
-        this.question = question;
-        this.topics = topics;
-        this.difficulty = difficulty;
-    }
+//    public Question(String question, List<String> topics, Integer difficulty) {
+//        this.question = question;
+//        this.topics = topics;
+//        this.difficulty = difficulty;
+//    }
 
 
     public String getQuestion() {
@@ -59,6 +60,20 @@ public class Question {
         this.id = id;
     }
 
+    public List<String> getMcqAnswers() {
+        return mcqAnswers;
+    }
 
+    public void setMcqAnswers(List<String> mcqAnswers) {
+        this.mcqAnswers = mcqAnswers;
+    }
+
+    public int getValidChoice() {
+        return validChoice;
+    }
+
+    public void setValidChoice(int validChoice) {
+        this.validChoice = validChoice;
+    }
 }
 

@@ -5,7 +5,7 @@ package datamodel;
  */
 public class MCQChoice {
     String choice;
-    Boolean valid;
+    int valid;
 
     private MCQAnswer mcqAnswer;
 

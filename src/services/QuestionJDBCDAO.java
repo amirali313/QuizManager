@@ -18,7 +18,7 @@ public class QuestionJDBCDAO {
     private static final String INSERT_STATEMENT2 = "INSERT INTO TOPICS (TOPIC1, TOPIC2) VALUES (?, ?)";
     private static final String DELETE_QUERY = "DELETE FROM QUESTION WHERE ID = ?";
     private static final String SEARCH_QUERY = "select id, question, difficulty, topic1, topic2 from question,topics where question.topicid=topics.tid and DIFFICULTY=? and (topic1 IN (?,?) or topic2 IN (?,?))";
-    private static final String SHOWALL_QUERY = "SELECT ID, QUESTION, DIFFICULTY, TOPIC1, TOPIC2 FROM QUESTION Q,TOPICS T WHERE Q.TOPICID=T.TID";
+    private static final String SHOWALL_QUERY = "SELECT ID, QUESTION, DIFFICULTY, TOPIC1, TOPIC2, CH1,CH2, CH3, CH4, ANSWER FROM QUESTION Q,TOPICS T WHERE Q.TOPICID=T.TID";
     private static final String UPDATE_QUERY = "UPDATE QUESTION SET QUESTION=?, DIFFICULTY=? WHERE ID=?";
 
 
@@ -170,7 +170,7 @@ public class QuestionJDBCDAO {
             ResultSet results = preparedStatement.executeQuery();
             while (results.next()) {
                 List<String> topics = new ArrayList<>();
-
+                List<String> choices = new ArrayList<>();
                 Question question = new Question();
                 question.setQuestion(results.getString("question"));
                 question.setId(results.getInt("id"));
@@ -178,7 +178,12 @@ public class QuestionJDBCDAO {
                 topics.add(results.getString("topic1"));
                 topics.add(results.getString("topic2"));
                 question.setTopics(topics);
-
+                choices.add(results.getString("ch1"));
+                choices.add(results.getString("ch2"));
+                choices.add(results.getString("ch3"));
+                choices.add(results.getString("ch4"));
+                question.setMcqAnswers(choices);
+                question.setValidChoice(results.getInt("answer"));
                 resultList.add(question);
             }
             results.close();
@@ -190,4 +195,6 @@ public class QuestionJDBCDAO {
         }
         return resultList;
     }
+
+
 }

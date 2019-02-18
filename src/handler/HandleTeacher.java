@@ -1,6 +1,8 @@
 package handler;
 
+import datamodel.MCQAnswer;
 import datamodel.Question;
+import services.MCQAnswerDAO;
 import services.QuestionJDBCDAO;
 
 import java.io.File;
@@ -87,6 +89,26 @@ public class HandleTeacher {
                 QuestionJDBCDAO createQn = new QuestionJDBCDAO();
                 createQn.create(question);
 
+                System.out.println("Is the question and MCQ ? (y/n)");
+                Scanner scanner7 = new Scanner(System.in);
+                String yorn = scanner7.nextLine();
+                if ("y".equals(yorn)){
+                    System.out.println("Enter your MCQ Answers : (4 answers)");
+                    Scanner scanner8 = new Scanner(System.in);
+                    List<String> mcqAnswerList = new ArrayList<>();
+                    for (int i=0 ; i < 4 ; i++){
+                        mcqAnswerList.add(scanner8.nextLine());
+                    }
+                    question.setMcqAnswers(mcqAnswerList);
+
+                    System.out.println("What is correct answers : (1, 2 , 3 , 4) ");
+                    int validChoice = scanner8.nextInt();
+                    question.setValidChoice(validChoice);
+
+                    MCQAnswerDAO createAnswer = new MCQAnswerDAO();
+                    createAnswer.create(question);
+                }
+
                 break;
 
 
@@ -160,6 +182,8 @@ public class HandleTeacher {
                     System.out.println("difficulty : " + allQuestions.get(i).getDifficulty());
                     System.out.println("topics : " + allQuestions.get(i).getTopics());
                     System.out.println("Q" + j + " : " + allQuestions.get(i).getQuestion());
+                    System.out.println("Choices : " + allQuestions.get(i).getMcqAnswers());
+                    System.out.println("Correct Answer number : " + allQuestions.get(i).getValidChoice());
                 }
 
                 break;
