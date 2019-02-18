@@ -57,7 +57,7 @@ public class HandleTeacher {
         System.out.println("1. Create a Question");
         System.out.println("2. Delete a Question");
         System.out.println("3. Update a Question");
-        System.out.println("4. Search Questions");
+        System.out.println("4. Show all Questions");
 
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
@@ -94,13 +94,25 @@ public class HandleTeacher {
                 System.out.println("What question do you want to delete ?");
                 System.out.println("-- Showing all the questions --");
                 System.out.println("-------------------------------");
-                //TODO display all questions only with there id
+                QuestionJDBCDAO deleteQn = new QuestionJDBCDAO();
+                List<Question> allQuestions;
+                allQuestions = deleteQn.showAllQuestions();
+                for (int i = 0; i < allQuestions.size(); i++) {
+                    int j = i + 1;
+                    System.out.println("id : " + allQuestions.get(i).getId());
+                    System.out.println("difficulty : " + allQuestions.get(i).getDifficulty());
+                    System.out.println("topics : " + allQuestions.get(i).getTopics());
+                    System.out.println("Q" + j + " : " + allQuestions.get(i).getQuestion());
+                }
 
                 System.out.println("-------------------------------");
                 System.out.println("ID of the Question :");
                 Scanner scanner3 = new Scanner(System.in);
                 int chosenId = scanner3.nextInt();
-                //TODO DELETE THE QUESTION
+                Question question1 = new Question();
+                question1.setId(chosenId);
+
+                deleteQn.delete(question1);
 
                 break;
 
@@ -108,23 +120,47 @@ public class HandleTeacher {
                 System.out.println("What question title do you want to Update ?");
                 System.out.println("-- Showing all the questions --");
                 System.out.println("-------------------------------");
-                //TODO display all questions only with there id
+                QuestionJDBCDAO updateQuestion = new QuestionJDBCDAO();
+//                List<Question> allQuestions;
+                allQuestions = updateQuestion.showAllQuestions();
+                for (int i = 0; i < allQuestions.size(); i++) {
+                    int j = i + 1;
+                    System.out.println("id : " + allQuestions.get(i).getId());
+                    System.out.println("difficulty : " + allQuestions.get(i).getDifficulty());
+                    System.out.println("topics : " + allQuestions.get(i).getTopics());
+                    System.out.println("Q" + j + " : " + allQuestions.get(i).getQuestion());
+                }
 
                 System.out.println("-------------------------------");
                 System.out.println("ID of the Question :");
                 Scanner scanner4 = new Scanner(System.in);
                 chosenId = scanner4.nextInt();
-                //TODO UPdate the question title
+                System.out.println("Enter your new question title :");
+                Scanner scanner5 = new Scanner(System.in);
+                String title = scanner5.nextLine();
+                System.out.println("Enter new difficulty : (1 , 2 , 3)");
+                int difficulty = scanner5.nextInt();
+                Question updateQ = new Question();
+                updateQ.setId(chosenId);
+                updateQ.setDifficulty(difficulty);
+                updateQ.setQuestion(title);
+                updateQuestion.update(updateQ);
 
                 break;
 
             case 4:
-                System.out.println("What questions do you wish to see based on difficulty ?");
-                System.out.println("Enter the Difficulty : ");
-                Scanner scanner5 = new Scanner(System.in);
-                int chosenDif = scanner5.nextInt();
-                //TODO SHOW questions based on there difficulty
-
+                System.out.println("-- Showing all the questions --");
+                System.out.println("-------------------------------");
+                QuestionJDBCDAO showAllQuestions = new QuestionJDBCDAO();
+//                List<Question> allQuestions;
+                allQuestions = showAllQuestions.showAllQuestions();
+                for (int i = 0; i < allQuestions.size(); i++) {
+                    int j = i + 1;
+                    System.out.println("id : " + allQuestions.get(i).getId());
+                    System.out.println("difficulty : " + allQuestions.get(i).getDifficulty());
+                    System.out.println("topics : " + allQuestions.get(i).getTopics());
+                    System.out.println("Q" + j + " : " + allQuestions.get(i).getQuestion());
+                }
 
                 break;
 
