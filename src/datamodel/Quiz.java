@@ -18,6 +18,7 @@ public class Quiz {
     private List<MCQAnswer> mcqAnswers;
     private List<Answer> answers;
     private List<MCQQuestions> mcqQuestions;
+    private List<Question> chosenQuestions;
 
 
     public Quiz(List<String> topics, int difficulty) {
@@ -26,10 +27,7 @@ public class Quiz {
     }
 
     public void takeQuiz() throws ClassNotFoundException {
-        //search questions based on topics and difficulties
-        // call a method from services and ask for chosen questions
 
-        List<Question> chosenQuestions;
         QuestionJDBCDAO questionJDBCDAO = new QuestionJDBCDAO();
         chosenQuestions = questionJDBCDAO.getQuestions(topics, difficulty);
 

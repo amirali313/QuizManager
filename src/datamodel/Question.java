@@ -30,18 +30,23 @@ public class Question {
     public String getQuestion() {
         return question;
     }
+
     public void setQuestion(String question) {
         this.question = question;
     }
+
     public List<String> getTopics() {
         return topics;
     }
+
     public void setTopics(List<String> topics) {
         this.topics = topics;
     }
+
     public int getDifficulty() {
         return difficulty;
     }
+
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }

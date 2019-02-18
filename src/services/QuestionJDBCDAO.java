@@ -14,15 +14,6 @@ import java.util.List;
 
 public class QuestionJDBCDAO {
 
-
-    /*
-
-
-     DELETE FROM QUESTION WHERE ID = 3;
-
-
-
-     select * from question;*/
     private static final String INSERT_STATEMENT = "INSERT INTO QUESTION,TOPICS (QUESTION, DIFFICULTY, TOPIC1, TOPIC2) VALUES (?, ?, ?, ?)";
     private static final String SEARCH_STATEMENT = "SELECT * FROM QUESTION";
     private static final String UPDATE_STATEMENT = "UPDATE QUESTION SET QUESTION=?, DIFFICULTY=? WHERE ID=?";
@@ -31,15 +22,19 @@ public class QuestionJDBCDAO {
 
 
     public void create(Question question) {
+        String INSERT_STATEMENT1 = "INSERT INTO QUESTION (QUESTION, DIFFICULTY) VALUES ('" +question.getQuestion()+"',"+question.getDifficulty()+")";
+        String INSERT_STATEMENT2 = "INSERT INTO TOPICS (TOPIC1, TOPIC2) VALUES ('" +question.getTopics().get(0)+"', '"+question.getTopics().get(1)+"')";
 
         try (Connection connection = getConnection();
-             PreparedStatement insertStatement = connection.prepareStatement(INSERT_STATEMENT);) {
+             PreparedStatement insertStatement1 = connection.prepareStatement(INSERT_STATEMENT1);
+             PreparedStatement insertStatement2 = connection.prepareStatement(INSERT_STATEMENT2)	) {
 
-            insertStatement.setString(1, question.getQuestion());
-            insertStatement.setInt(2, question.getDifficulty());
-            insertStatement.setString(3, question.getTopics().get(0));
-            insertStatement.setString(4, question.getTopics().get(1));
-            insertStatement.execute();
+            /*insertStatement1.setString(1, question.getQuestion());
+            insertStatement1.setInt(2, question.getDifficulty());
+            insertStatement2.setString(3, question.getTopics().get(0));
+            insertStatement2.setString(4, question.getTopics().get(1));*/
+            insertStatement1.execute();
+            insertStatement2.execute();
             System.out.println("Question created Successfully!!!!!!");
         } catch (SQLException e) {
             e.printStackTrace();
