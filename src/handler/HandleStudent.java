@@ -78,8 +78,5 @@ public class HandleStudent {
 
         quiz.takeQuiz();
 
-        //TODO store the quiz with the student information into database
-
-
     }
 }

@@ -205,6 +205,7 @@ public class HandleTeacher {
                 allQuestions = showAllQuestions.showAllQuestions();
                 for (int i = 0; i < allQuestions.size(); i++) {
                     int j = i + 1;
+                    System.out.println("---------------------------------");
                     System.out.println("id : " + allQuestions.get(i).getId());
                     System.out.println("difficulty : " + allQuestions.get(i).getDifficulty());
                     System.out.println("topics : " + allQuestions.get(i).getTopics());

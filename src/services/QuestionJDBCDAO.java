@@ -18,7 +18,7 @@ public class QuestionJDBCDAO {
     private static final String GETTOPICID_QUERY = "SELECT ID, topic1, topic2 FROM TOPICS ORDER BY ID DESC LIMIT 1;";
 
     private static final String DELETE_QUERY = "DELETE FROM QUESTION WHERE ID = ?";
-    private static final String SEARCH_QUERY = "select question.id, question, difficulty, topic1, topic2 from question,topics where question.topicid=topics.id and DIFFICULTY=? and (topic1 IN (?,?) or topic2 IN (?,?))";
+    private static final String SEARCH_QUERY = "select question.id, question, difficulty, topic1, topic2, CH1,CH2, CH3, CH4, ANSWER from question,topics where question.topicid=topics.id and DIFFICULTY=? and (topic1 IN (?,?) or topic2 IN (?,?))";
     private static final String SHOWALL_QUERY = "SELECT q.ID, QUESTION, DIFFICULTY, TOPIC1, TOPIC2, CH1,CH2, CH3, CH4, ANSWER FROM QUESTION Q,TOPICS T WHERE Q.TOPICID=T.id";
     private static final String UPDATE_QUERY = "UPDATE QUESTION SET QUESTION=?, DIFFICULTY=? WHERE ID=?";
 
@@ -109,11 +109,19 @@ public class QuestionJDBCDAO {
             ResultSet results = preparedStatement.executeQuery();
             while (results.next()) {
                 Question question = new Question();
+                List<String> choices = new ArrayList<>();
                 question.setQuestion(results.getString("question"));
                 question.setId(results.getInt("id"));
                 question.setDifficulty(results.getInt("difficulty"));
+                topics.add(results.getString("topic1"));
+                topics.add(results.getString("topic2"));
                 question.setTopics(topics);
-
+                choices.add(results.getString("ch1"));
+                choices.add(results.getString("ch2"));
+                choices.add(results.getString("ch3"));
+                choices.add(results.getString("ch4"));
+                question.setMcqAnswers(choices);
+                question.setValidChoice(results.getInt("answer"));
                 resultList.add(question);
             }
             results.close();
