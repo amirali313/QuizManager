@@ -13,11 +13,13 @@ import java.util.List;
 
 public class QuestionJDBCDAO {
 
-    private static final String INSERT_STATEMENT1 = "INSERT INTO QUESTION (QUESTION, DIFFICULTY) VALUES (?, ?)";
-    private static final String INSERT_STATEMENT2 = "INSERT INTO TOPICS (TOPIC1, TOPIC2) VALUES (?, ?)";
+    private static final String INSERT_STATEMENT1 = "INSERT INTO QUESTION (QUESTION, DIFFICULTY, TOPICID) VALUES (?, ?, ?)";
+    private static final String TOPICINSERT_QUERY = "INSERT INTO TOPICS (TOPIC1, TOPIC2) VALUES (?, ?)";
+    private static final String GETTOPICID_QUERY = "SELECT ID, topic1, topic2 FROM TOPICS ORDER BY ID DESC LIMIT 1;";
+
     private static final String DELETE_QUERY = "DELETE FROM QUESTION WHERE ID = ?";
-    private static final String SEARCH_QUERY = "select id, question, difficulty, topic1, topic2 from question,topics where question.topicid=topics.tid and DIFFICULTY=? and (topic1 IN (?,?) or topic2 IN (?,?))";
-    private static final String SHOWALL_QUERY = "SELECT ID, QUESTION, DIFFICULTY, TOPIC1, TOPIC2, CH1,CH2, CH3, CH4, ANSWER FROM QUESTION Q,TOPICS T WHERE Q.TOPICID=T.TID";
+    private static final String SEARCH_QUERY = "select question.id, question, difficulty, topic1, topic2 from question,topics where question.topicid=topics.id and DIFFICULTY=? and (topic1 IN (?,?) or topic2 IN (?,?))";
+    private static final String SHOWALL_QUERY = "SELECT q.ID, QUESTION, DIFFICULTY, TOPIC1, TOPIC2, CH1,CH2, CH3, CH4, ANSWER FROM QUESTION Q,TOPICS T WHERE Q.TOPICID=T.id";
     private static final String UPDATE_QUERY = "UPDATE QUESTION SET QUESTION=?, DIFFICULTY=? WHERE ID=?";
 
 
@@ -36,13 +38,25 @@ public class QuestionJDBCDAO {
 
         try (Connection connection = getConnection();
              PreparedStatement insertStatement1 = connection.prepareStatement(INSERT_STATEMENT1);
-             PreparedStatement insertStatement2 = connection.prepareStatement(INSERT_STATEMENT2)	) {
+             PreparedStatement topicInsertQuery = connection.prepareStatement(TOPICINSERT_QUERY);
+             PreparedStatement getTopicsIdQuery = connection.prepareStatement(GETTOPICID_QUERY)) {
+
+
+            topicInsertQuery.setString(1, question.getTopics().get(0));
+            topicInsertQuery.setString(2, question.getTopics().get(1));
+            topicInsertQuery.execute();
+
+            ResultSet result = getTopicsIdQuery.executeQuery();
+            int id=0;
+            while(result.next()) {
+                //System.out.println("TID: " + result);
+                id = result.getInt("ID");
+            }
             insertStatement1.setString(1, question.getQuestion());
             insertStatement1.setInt(2, question.getDifficulty());
-            insertStatement2.setString(1, question.getTopics().get(0));
-            insertStatement2.setString(2, question.getTopics().get(1));
+            insertStatement1.setInt(3, id);
             insertStatement1.execute();
-            insertStatement2.execute();
+
             System.out.println("Question created Successfully!!!!!!");
         } catch (SQLException e) {
             e.printStackTrace();

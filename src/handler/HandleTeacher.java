@@ -78,10 +78,11 @@ public class HandleTeacher {
                 Scanner scanner2 = new Scanner(System.in);
                 topics.add(scanner2.nextLine());
                 System.out.println("topic #2 : (type n if there is only one topic) " );
-                if (scanner2.nextLine() == "n")
+                String secondTopic = scanner2.nextLine();
+                if ("n".equals(secondTopic))
                     question.setTopics(topics);
                 else {
-                    topics.add(scanner2.nextLine());
+                    topics.add(secondTopic);
                     question.setTopics(topics);
                 }
 
@@ -103,7 +104,7 @@ public class HandleTeacher {
                     System.out.println("What is correct answers : (1, 2 , 3 , 4) ");
                     int validChoice = scanner8.nextInt();
                     question.setValidChoice(validChoice);
-
+                    System.out.println(question);
                     MCQAnswerDAO createAnswer = new MCQAnswerDAO();
                     createAnswer.create(question);
                 }

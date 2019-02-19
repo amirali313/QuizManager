@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class MCQAnswerDAO {
 
-    public static final String CREATE_QUERY = "INSERT INTO QUESTION (CH1, CH2, CH3, CH4, ANSWER) VALUES (?,?,?,?,?)";
+    public static final String CREATE_QUERY = "UPDATE QUESTION SET CH1=?, CH2=?, CH3=?, CH4=?, ANSWER=? WHERE QUESTION=?";
     public static final String UPDATE_QUERY = "UPDATE QUESTION SET QUESTION=?, DIFFICULTY=?, CH1=?, CH2=?, CH3=?, CH4=?, ANSWER=? WHERE ID=?";
 
 
@@ -28,6 +28,8 @@ public class MCQAnswerDAO {
 
     public void create(Question question) {
 
+        System.out.println("CREATE FUNCTION :" + question);
+
         try (Connection connection = getConnection();
              PreparedStatement insertStatement = connection.prepareStatement(CREATE_QUERY)) {
             insertStatement.setString(1, question.getMcqAnswers().get(0));
@@ -35,7 +37,8 @@ public class MCQAnswerDAO {
             insertStatement.setString(3, question.getMcqAnswers().get(2));
             insertStatement.setString(4, question.getMcqAnswers().get(3));
             insertStatement.setInt(5, question.getValidChoice());
-            insertStatement.execute();
+            insertStatement.setString(6, question.getQuestion());
+            insertStatement.executeUpdate();
             System.out.println("Answer created Successfully!!!!!!");
         } catch (SQLException e) {
             e.printStackTrace();

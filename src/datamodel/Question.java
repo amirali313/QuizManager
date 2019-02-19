@@ -15,7 +15,7 @@ public class Question {
     @Override
     public String toString() {
         return "Question [id=" + id + ", question=" + question + ", topics=" + topics + ", difficulty=" + difficulty
-                + "]";
+                + ", MCQAnswers" + mcqAnswers + ", correct Answer : " + validChoice + "]";
     }
 
     public Question() {
