@@ -7,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,50 +79,9 @@ public class QuestionJDBCDAO {
         }
     }
 
-    public List<Question> search(List<String> topics, int difficulty) {
-
-        //TODO
-        //TODO search correctly
-        //TODO
-
-        List<Question> resultList = new ArrayList<Question>();
-
-		/*SELECT
-	    ID,DIFFICULTY,QUESTION
-	    FROM QUESTION
-	    WHERE
-	       DIFFICULTY = 1
-	    and
-	      QUESTION LIKE '%JV%'
-
-	      */
-        String selectQuery = "select  from QUESTION WHERE ";
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
-        ) {
-
-
-            ResultSet results = preparedStatement.executeQuery();
-            while (results.next()) {
-
-                Question currentQuestion = new Question();
-                resultList.add(currentQuestion);
-            }
-            results.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return resultList;
-    }
-
     public List<Question> getQuestions(List<String> topics, int difficulty) {
 
         List<Question> resultList = new ArrayList<Question>();
-
-        /*//String selectQuery = "select id, question, difficulty, topic1," +
-                " topic2 from question,topics where question.topicid=topics.tid and " +
-                "DIFFICULTY="+difficulty+" and (topic1 IN ('" + topics.get(0) +"', '"+ topics.get(1) +"')" +
-                " or topic2 IN ('" + topics.get(0) +"', '"+ topics.get(1) +"'))";*/
 
         try{
             Connection connection = getConnection();

@@ -1,6 +1,5 @@
 package handler;
 
-import datamodel.MCQAnswer;
 import datamodel.Question;
 import services.MCQAnswerDAO;
 import services.QuestionJDBCDAO;
@@ -125,6 +124,8 @@ public class HandleTeacher {
                     System.out.println("difficulty : " + allQuestions.get(i).getDifficulty());
                     System.out.println("topics : " + allQuestions.get(i).getTopics());
                     System.out.println("Q" + j + " : " + allQuestions.get(i).getQuestion());
+                    System.out.println("Choices : " + allQuestions.get(i).getMcqAnswers());
+                    System.out.println("Correct Answer number : " + allQuestions.get(i).getValidChoice());
                 }
 
                 System.out.println("-------------------------------");
@@ -151,6 +152,8 @@ public class HandleTeacher {
                     System.out.println("difficulty : " + allQuestions.get(i).getDifficulty());
                     System.out.println("topics : " + allQuestions.get(i).getTopics());
                     System.out.println("Q" + j + " : " + allQuestions.get(i).getQuestion());
+                    System.out.println("Choices : " + allQuestions.get(i).getMcqAnswers());
+                    System.out.println("Correct Answer number : " + allQuestions.get(i).getValidChoice());
                 }
 
                 System.out.println("-------------------------------");
@@ -166,7 +169,30 @@ public class HandleTeacher {
                 updateQ.setId(chosenId);
                 updateQ.setDifficulty(difficulty);
                 updateQ.setQuestion(title);
+
+                System.out.println("Do you want to update answers? (y/n)");
+                Scanner scanner9 = new Scanner(System.in);
+                String yn = scanner9.nextLine();
+                if ("y".equals(yn)) {
+                    System.out.println("Enter your MCQ Answers : (4 answers)");
+                    Scanner scanner10 = new Scanner(System.in);
+                    List<String> mcqAnswerList = new ArrayList<>();
+                    for (int i = 0; i < 4; i++) {
+                        mcqAnswerList.add(scanner10.nextLine());
+                    }
+                    updateQ.setMcqAnswers(mcqAnswerList);
+
+                    System.out.println("What is correct answers : (1, 2 , 3 , 4) ");
+                    int validChoice = scanner10.nextInt();
+                    updateQ.setValidChoice(validChoice);
+                    updateQuestion.update(updateQ);
+
+                    MCQAnswerDAO mcqAnswerDAO = new MCQAnswerDAO();
+                    mcqAnswerDAO.update(updateQ);
+                }
+
                 updateQuestion.update(updateQ);
+
 
                 break;
 

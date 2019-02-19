@@ -12,6 +12,7 @@ import java.util.List;
 public class MCQAnswerDAO {
 
     public static final String CREATE_QUERY = "INSERT INTO QUESTION (CH1, CH2, CH3, CH4, ANSWER) VALUES (?,?,?,?,?)";
+    public static final String UPDATE_QUERY = "UPDATE QUESTION SET QUESTION=?, DIFFICULTY=?, CH1=?, CH2=?, CH3=?, CH4=?, ANSWER=? WHERE ID=?";
 
 
     private Connection getConnection() throws SQLException {
@@ -42,21 +43,24 @@ public class MCQAnswerDAO {
 
     }
 
-//    public void update(Question question) {
-//
-//        try (Connection connection = getConnection();
-//             PreparedStatement updateStatement = connection.prepareStatement(UPDATE_QUERY)){
-//            updateStatement.setString(1, question.getQuestion());
-//            updateStatement.setInt(2, question.getDifficulty());
-//            updateStatement.setInt(3, question.getId());
-//            updateStatement.executeUpdate();
-//            System.out.println("Update Successfully :)");
-//        }catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//
+    public void update(Question question) {
+
+        try (Connection connection = getConnection();
+             PreparedStatement updateStatement = connection.prepareStatement(UPDATE_QUERY)){
+            updateStatement.setString(1, question.getQuestion());
+            updateStatement.setInt(2, question.getDifficulty());
+            updateStatement.setString(3, question.getMcqAnswers().get(0));
+            updateStatement.setString(4, question.getMcqAnswers().get(1));
+            updateStatement.setString(5, question.getMcqAnswers().get(2));
+            updateStatement.setString(6, question.getMcqAnswers().get(3));
+            updateStatement.setInt(7, question.getValidChoice());
+            updateStatement.setInt(8, question.getId());
+            updateStatement.executeUpdate();
+            System.out.println("Update Successfully :)");
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
