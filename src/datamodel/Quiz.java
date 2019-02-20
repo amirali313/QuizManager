@@ -1,7 +1,11 @@
 package datamodel;
 
-import services.QuestionJDBCDAO;
+import services.QuestionDAO;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -30,16 +34,19 @@ public class Quiz {
 
     public void takeQuiz() throws ClassNotFoundException {
 
-        QuestionJDBCDAO questionJDBCDAO = new QuestionJDBCDAO();
+        QuestionDAO questionJDBCDAO = new QuestionDAO();
         chosenQuestions = questionJDBCDAO.getQuestions(topics, difficulty);
-        List<Answer> answers = new ArrayList<>();
+
+        List<String> answers = new ArrayList<>();
         List<MCQAnswer> mcqAnswers = new ArrayList<>();
         int grade = 0;
         student.setQuestions(chosenQuestions);
-
+        //We have got a list of questions based on difficulty and topics
+        //now putting it in to for to let the student to take it.
         for (int i = 0; i < chosenQuestions.size(); i++) {
             int j = i + 1;
 
+            System.out.println("-|-|-|-|-|-|-|-|-|-|-|-|-|-|-");
             System.out.println("id : " + chosenQuestions.get(i).getId());
             System.out.println("difficulty : " + chosenQuestions.get(i).getDifficulty());
             System.out.println("topics : " + chosenQuestions.get(i).getTopics());
@@ -51,9 +58,8 @@ public class Quiz {
                 System.out.println("Enter your answer : ");
                 Scanner scanner = new Scanner(System.in);
                 String studentAnswer = scanner.nextLine();
-                Answer answer = new Answer();
-                answer.setText(studentAnswer);
-                answers.add(answer);
+                
+                answers.add(studentAnswer);
                 student.setAnswer(answers);
 
             }
@@ -77,10 +83,52 @@ public class Quiz {
             }
         }
 
+        //grading to student
         if (chosenQuestions.size() != 0) {
             student.setGrade(grade);
             System.out.println("Your Grade : " + grade + "/" + student.getMcqAnswer().size());
         }
+
+        exportQuiz(student);
+    }
+
+    private void exportQuiz(Student student) {
+        try {
+            PrintWriter writer = new PrintWriter("Results.txt", "UTF-8");
+            writer.println("---------Results---------");
+            writer.println("-------------------------");
+            writer.println("");
+            writer.println("Student name : " + student.getName());
+            writer.println("");
+            int k = 0;
+            for (int i = 0 ; i < student.getQuestions().size() ; i++){
+
+                writer.println("question #" + (i+1) + " : " + student.getQuestions().get(i).getQuestion());
+                if (student.getQuestions().get(i).getValidChoice() != 0){
+                    for (int j = 0 ; j < student.getQuestions().get(i).getMcqAnswers().size() ; j++) {
+                        writer.println((j+1) + " : " + student.getQuestions().get(i).getMcqAnswers().get(j));
+                    }
+                    writer.println("correct Answer : " + student.getQuestions().get(i).getValidChoice());
+                    writer.println("");
+                }
+                else {
+
+                    writer.println("Your Answer : " + student.getAnswer().get(k));
+                    writer.println("");
+                    k++;
+                }
+
+            }
+
+
+            writer.println("your grade : " + student.getGrade() + " / " + student.getMcqAnswer().size() + " MCQ Questions.");
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("could not write to file");
+        }
+
+
     }
 
 

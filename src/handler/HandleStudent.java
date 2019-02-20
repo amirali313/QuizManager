@@ -22,11 +22,11 @@ public class HandleStudent {
         Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
         String id = scanner.nextLine();
-
+        //the system gets the name and id to authenticate
         if (authenticateStudent(name, id)) {
             System.out.println("Welcome " + name);
             Student student = new Student(name,id);
-
+            //User has login correctly
             handleStudentQuiz(student);
 
         }else {
@@ -36,6 +36,8 @@ public class HandleStudent {
     }
 
     private static boolean authenticateStudent(String name, String id) {
+
+        //There is a file in the project which has all the usernames and ids
         File file = new File("Students.txt");
         Scanner scanner;
         String user = null;
@@ -48,7 +50,6 @@ public class HandleStudent {
             pwd = parts[1];
             scanner.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -73,6 +74,9 @@ public class HandleStudent {
         Scanner scanner2 = new Scanner(System.in);
 
         int difficulty = scanner2.nextInt();
+
+        //will add the information to quiz and take a quiz based on difficulty and topics that
+        //student chose
 
         Quiz quiz = new Quiz(topics , difficulty , student);
 

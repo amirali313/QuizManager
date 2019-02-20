@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class QuestionJDBCDAO {
+public class QuestionDAO {
 
     private static final String INSERT_STATEMENT1 = "INSERT INTO QUESTION (QUESTION, DIFFICULTY, TOPICID) VALUES (?, ?, ?)";
     private static final String TOPICINSERT_QUERY = "INSERT INTO TOPICS (TOPIC1, TOPIC2) VALUES (?, ?)";
@@ -23,7 +23,7 @@ public class QuestionJDBCDAO {
     private static final String UPDATE_QUERY = "UPDATE QUESTION SET QUESTION=?, DIFFICULTY=? WHERE ID=?";
 
 
-    private Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
 
         Configuration conf = Configuration.getInstance();
         String dburl = conf.getPropertyValue("db.url");

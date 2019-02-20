@@ -1,7 +1,10 @@
 package services;
 
+import org.h2.tools.RunScript;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -18,7 +21,12 @@ public class Configuration {
             properties.load(new FileInputStream(file));  // loading all the properties of the file
             // create a map<key, value> of all properties
         } catch (IOException e) {
-            e.printStackTrace();
+
+//            try{
+//                RunScript.execute(QuestionDAO.getConnection(), new FileReader("SQL_Queries.txt"));
+//            } catch (IOException e1) {
+//
+//            }
         }
     }
 

@@ -2,7 +2,7 @@ package handler;
 
 import datamodel.Question;
 import services.MCQAnswerDAO;
-import services.QuestionJDBCDAO;
+import services.QuestionDAO;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -86,7 +86,7 @@ public class HandleTeacher {
                     question.setTopics(topics);
                 }
 
-                QuestionJDBCDAO createQn = new QuestionJDBCDAO();
+                QuestionDAO createQn = new QuestionDAO();
                 createQn.create(question);
 
                 System.out.println("Is the question and MCQ ? (y/n)");
@@ -116,7 +116,7 @@ public class HandleTeacher {
                 System.out.println("What question do you want to delete ?");
                 System.out.println("-- Showing all the questions --");
                 System.out.println("-------------------------------");
-                QuestionJDBCDAO deleteQn = new QuestionJDBCDAO();
+                QuestionDAO deleteQn = new QuestionDAO();
                 List<Question> allQuestions;
                 allQuestions = deleteQn.showAllQuestions();
                 for (int i = 0; i < allQuestions.size(); i++) {
@@ -144,7 +144,7 @@ public class HandleTeacher {
                 System.out.println("What question title do you want to Update ?");
                 System.out.println("-- Showing all the questions --");
                 System.out.println("-------------------------------");
-                QuestionJDBCDAO updateQuestion = new QuestionJDBCDAO();
+                QuestionDAO updateQuestion = new QuestionDAO();
 //                List<Question> allQuestions;
                 allQuestions = updateQuestion.showAllQuestions();
                 for (int i = 0; i < allQuestions.size(); i++) {
@@ -200,7 +200,7 @@ public class HandleTeacher {
             case 4:
                 System.out.println("-- Showing all the questions --");
                 System.out.println("-------------------------------");
-                QuestionJDBCDAO showAllQuestions = new QuestionJDBCDAO();
+                QuestionDAO showAllQuestions = new QuestionDAO();
 //                List<Question> allQuestions;
                 allQuestions = showAllQuestions.showAllQuestions();
                 for (int i = 0; i < allQuestions.size(); i++) {

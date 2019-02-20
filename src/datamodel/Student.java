@@ -9,7 +9,7 @@ public class Student {
     private String id;
 
     private List<MCQAnswer> mcqAnswer;
-    private List<Answer> answer;
+    private List<String> answer;
 
     private List<Quiz> quiz;
 
@@ -35,7 +35,7 @@ public class Student {
         return mcqAnswer;
     }
 
-    public List<Answer> getAnswer() {
+    public List<String> getAnswer() {
         return answer;
     }
 
@@ -55,7 +55,7 @@ public class Student {
         this.mcqAnswer = mcqAnswer;
     }
 
-    public void setAnswer(List<Answer> answer) {
+    public void setAnswer(List<String> answer) {
         this.answer = answer;
     }
 
