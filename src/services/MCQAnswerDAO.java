@@ -15,7 +15,7 @@ public class MCQAnswerDAO {
     public static final String UPDATE_QUERY = "UPDATE QUESTION SET QUESTION=?, DIFFICULTY=?, CH1=?, CH2=?, CH3=?, CH4=?, ANSWER=? WHERE ID=?";
 
 
-    private Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
 
         Configuration conf = Configuration.getInstance();
         String dburl = conf.getPropertyValue("db.url");

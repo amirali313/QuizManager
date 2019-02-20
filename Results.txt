@@ -3,21 +3,18 @@
 
 Student name : student
 
-question #1 : qq
-1 : qq
-2 : ww
-3 : ee
-4 : rr
-correct Answer : 2
+question #1 : Type IV JDBC driver is a driver ___________
+1 : which is written in C++
+2 : which requires an intermediate layer
+3 : which communicates through Java sockets
+4 : which translates JDBC function calls into API not native to DBMS
+correct Answer : 3
 
-question #2 : bbla bla bla
-1 : bb
-2 : bb
-3 : bb
-4 : bb
+question #2 : What is the use of final keyword in Java?
+1 : When a class is made final, a sublcass of it can not be created.
+2 : When a method is final, it can not be overridden.
+3 : When a variable is final, it can be assigned value only once.
+4 : All of the above
 correct Answer : 4
 
-question #3 : Open Question ?
-Your Answer : THIS IS MY ANSWER
-
-your grade : 1 / 2 MCQ Questions.
+your grade : 0 / 2 MCQ Questions.

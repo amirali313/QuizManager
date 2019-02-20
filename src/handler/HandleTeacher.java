@@ -1,6 +1,7 @@
 package handler;
 
 import datamodel.Question;
+import services.Configuration;
 import services.MCQAnswerDAO;
 import services.QuestionDAO;
 

@@ -130,6 +130,7 @@ public class QuestionDAO {
         }
         if (resultList.size() == 0){
             System.out.println("No Quiz found :(");
+            Configuration.dropLoad();
         }
         return resultList;
     }
